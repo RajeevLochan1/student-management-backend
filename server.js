@@ -1,8 +1,12 @@
-const express = require("express");
-const dbConnect = require("./mongodb");
-const mongoDb = require("mongodb");
+// const express = require("express");
+import express from "express"
+// const dbConnect = require("./mongodb");
+import dbConnect from "./mongodb.js"
+// const mongoDb = require("mongodb");
+import mongoDb from "mongodb"
+// const cors = require("cors");
+import cors from "cors"
 const app = express();
-const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
