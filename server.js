@@ -1,8 +1,12 @@
-const express = require("express");
-const dbConnect = require("./mongodb");
-const mongoDb = require("mongodb");
+// const express = require("express");
+import express from "express";
+// const dbConnect = require("./mongodb");
+import dbConnect from "./mongodb.js";
+// const mongoDb = require("mongodb");
+import mongoDb from "mongodb";
+// const cors = require("cors");
+import cors from "cors";
 const app = express();
-const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
@@ -28,7 +32,8 @@ app.get("/singleStudent/:id", async (req, res) => {
 app.post("/newStudent", async (req, res) => {
   let data = await dbConnect();
   let result = await data.insertOne(req.body);
-  res.send(result);
+  // res.send(result);
+  res.json({ data: result, message: "Student added successfully" });
 });
 
 //update data
@@ -39,7 +44,8 @@ app.put("/updateStudent/:id", async (req, res) => {
       { _id: new mongoDb.ObjectId(req.params.id) },
       { $set: req.body }
     );
-    res.send(result);
+    // res.send(result);
+    res.json({ data: result, message: "Student updated successfully" });
   } catch (error) {
     console.log(error.message);
   }
@@ -51,7 +57,8 @@ app.delete("/delete/:id", async (req, res) => {
   let result = await data.deleteOne({
     _id: new mongoDb.ObjectId(req.params.id),
   });
-  res.send(result);
+  // res.send(result);
+  res.json({ data: result, message: "Student deleted successfully" });
 });
 
 app.listen(4000, () => {
